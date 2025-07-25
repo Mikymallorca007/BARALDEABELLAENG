@@ -86,7 +86,11 @@
             border-radius: 5px;
             font-size: 1.2em;
         }
-        button:hover {
+        button:disabled {
+            background-color: #ccc;
+            cursor: not-allowed;
+        }
+        button:hover:not(:disabled) {
             background-color: #45a049;
         }
         #sending-image {
@@ -112,6 +116,11 @@
             font-size: 1.5em;
             font-weight: bold;
             margin-top: 10px;
+        }
+        #aviso {
+            color: red;
+            margin-top: 10px;
+            font-size: 1.2em;
         }
     </style>
 </head>
@@ -182,14 +191,18 @@ function calcularPrecio() {
     const opcion3 = document.getElementById("Onion").checked ? "Onion" : "";
     const opcion4 = document.getElementById("tomato").checked ? "Tomato" : "";
 
-    const seleccionados = [opcion1, opcion2, opcion3, opcion4].filter(item => item).join(",");
+    // 🔧 Ordenamos para evitar errores de combinación
+    const seleccionados = [opcion1, opcion2, opcion3, opcion4]
+        .filter(item => item)
+        .sort()
+        .join(",");
 
-    let precioExtras = combinacionesPrecios[seleccionados] !== undefined ? combinacionesPrecios[seleccionados] : 0;
-    let precioTotal = PRECIO_BASE + precioExtras;
+    const precioExtras = combinacionesPrecios[seleccionados] !== undefined ? combinacionesPrecios[seleccionados] : 0;
+    const precioTotal = PRECIO_BASE + precioExtras;
 
     document.getElementById("precioTotal").textContent = precioTotal.toFixed(2) + " €";
 
-    if (seleccionados === "Onion" || seleccionados === "Tomato" || seleccionados === "Cebolla,Tomate") {
+    if (seleccionados === "Onion" || seleccionados === "Tomato" || seleccionados === "Onion,Tomato") {
         mostrarAviso(seleccionados);
         deshabilitarBoton();
     } else {
@@ -203,14 +216,10 @@ function mostrarAviso(combinacion) {
     if (!avisoDiv) {
         avisoDiv = document.createElement("div");
         avisoDiv.id = "aviso";
-        avisoDiv.style.color = "red";
-        avisoDiv.style.marginTop = "10px";
-        avisoDiv.style.fontSize = "1.2em";
         document.querySelector(".extras-container").appendChild(avisoDiv);
     }
 
     let mensaje = "";
-
     if (combinacion === "Onion") {
         mensaje = "You selected only Onion. This combination is not valid. Are you sure you want to continue?";
     } else if (combinacion === "Tomato") {
@@ -223,10 +232,8 @@ function mostrarAviso(combinacion) {
 }
 
 function ocultarAviso() {
-    let avisoDiv = document.getElementById("aviso");
-    if (avisoDiv) {
-        avisoDiv.remove();
-    }
+    const avisoDiv = document.getElementById("aviso");
+    if (avisoDiv) avisoDiv.remove();
 }
 
 function deshabilitarBoton() {
@@ -242,44 +249,6 @@ document.querySelectorAll("input[type=checkbox]").forEach(checkbox => {
 });
 
 function agregarAlCarrito() {
-    const precioTotal = document.getElementById("precioTotal").textContent;
-    const precioNumerico = parseFloat(precioTotal.replace(" €", ""));
-
-    if (isNaN(precioNumerico)) {
-        alert("Error getting the price.");
-        return;
-    }
-
-    const ingredientesSeleccionados = [];
-    document.querySelectorAll("input[type=checkbox]:checked").forEach(checkbox => {
-        ingredientesSeleccionados.push(checkbox.id.charAt(0).toUpperCase() + checkbox.id.slice(1)); 
-    });
-
-    let carrito = JSON.parse(localStorage.getItem('Carrito')) || [];
-    
-    let producto = {
-        nombre: "Baguette (York) or (Cheese)",
-        extras: ingredientesSeleccionados.length > 0 ? ingredientesSeleccionados : ["No extras"],
-        precioBase: PRECIO_BASE,
-        precioTotal: precioNumerico
-    };
-
-    carrito.push(producto);
-    localStorage.setItem('Carrito', JSON.stringify(carrito));
-
-    console.log("Cart after adding:", carrito);
-
-    mostrarImagenEnvio();
-}
-
-function mostrarImagenEnvio() {
-    let sendingImage = document.getElementById("sending-image");
-    sendingImage.style.display = "block";
-    setTimeout(() => { 
-        sendingImage.style.display = "none"; 
-    }, 1000);
-}
-</script>
-
-</body>
-</html>
+    const precioTexto = document.getElementById("precioTotal").textContent;
+    const precioNumerico = parseFloat(precioTexto.replace(" €", ""));
+    if (isNa
