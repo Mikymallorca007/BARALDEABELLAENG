@@ -158,58 +158,56 @@
     </a>
 
 <script>
-    const PRECIO_BASE = 6.00;
-
-    const combinacionesPrecios = {
-        "Queso": 0.40,
-        "Cebolla": 0.40,
-        "Tomate": 0.40,
-        "Huevo": 1.00,
+ const combinacionesPrecios = {
+        "Cheese": 0.40,
+        "Onion": 0.40,
+        "Tomato": 0.40,
+        "Egg": 1.00,
         "Bacon": 1.00,
 
-        "Queso,Cebolla": 0.80,
-        "Queso,Tomate": 0.80,
-        "Queso,Huevo": 1.40,
-        "Queso,Bacon": 1.40,
+        "Cheese,Onion": 0.80,
+        "Cheese,Tomato": 0.80,
+        "Cheese,Egg": 1.40,
+        "Cheese,Bacon": 1.40,
 
-        "Cebolla,Tomate": 0.80,
-        "Cebolla,Huevo": 1.40,
-        "Cebolla,Bacon": 1.40,
+        "Onion,Tomato": 0.80,
+        "Onion,Egg": 1.40,
+        "Onion,Bacon": 1.40,
 
-        "Tomate,Huevo": 1.40,
-        "Tomate,Bacon": 1.40,
+        "Tomato,Egg": 1.40,
+        "Tomato,Bacon": 1.40,
 
-        "Huevo,Bacon": 2.00,
+        "Egg,Bacon": 2.00,
 
-        "Queso,Cebolla,Tomate": 1.20,
-        "Queso,Cebolla,Huevo": 1.80,
-        "Queso,Cebolla,Bacon": 1.80,
+        "Cheese,Onion,Tomato": 1.20,
+        "Cheese,Onion,Egg": 1.80,
+        "Cheese,Onion,Bacon": 1.80,
 
-        "Queso,Tomate,Huevo": 1.80,
-        "Queso,Tomate,Bacon": 1.80,
+        "Cheese,Tomato,Egg": 1.80,
+        "Cheese,Tomato,Bacon": 1.80,
 
-        "Cebolla,Tomate,Huevo": 1.80,
-        "Cebolla,Tomate,Bacon": 1.80,
+        "Onion,Tomato,Egg": 1.80,
+        "Onion,Tomato,Bacon": 1.80,
 
-        "Queso,Huevo,Bacon": 2.40,
-        "Cebolla,Huevo,Bacon": 2.40,
-        "Tomate,Huevo,Bacon": 2.40,
+        "Cheese,Egg,Bacon": 2.40,
+        "Onion,Egg,Bacon": 2.40,
+        "Tomato,Egg,Bacon": 2.40,
 
-        "Queso,Cebolla,Tomate,Huevo": 2.20,
-        "Queso,Cebolla,Tomate,Bacon": 2.20,
+        "Cheese,Onion,Tomato,Egg": 2.20,
+        "Cheese,Onion,Tomato,Bacon": 2.20,
 
-        "Queso,Cebolla,Huevo,Bacon": 2.80,
-        "Queso,Tomate,Huevo,Bacon": 2.80,
-        "Cebolla,Tomate,Huevo,Bacon": 2.80,
+        "Cheese,Onion,Egg,Bacon": 2.80,
+        "Cheese,Tomato,Egg,Bacon": 2.80,
+        "Onion,Tomato,Egg,Bacon": 2.80,
 
-        "Queso,Cebolla,Tomate,Huevo,Bacon": 3.20
+        "Cheese,Onion,Tomato,Egg,Bacon": 3.20
     };
 
     function calcularPrecio() {
-        const opcion1 = document.getElementById("queso").checked ? "Cheese" : "";
-        const opcion2 = document.getElementById("cebolla").checked ? "Onion" : "";
-        const opcion3 = document.getElementById("Tomate").checked ? "Tomato" : "";
-        const opcion4 = document.getElementById("Huevo").checked ? "Egg" : "";
+        const opcion1 = document.getElementById("Cheese").checked ? "Cheese" : "";
+        const opcion2 = document.getElementById("Onion").checked ? "Onion" : "";
+        const opcion3 = document.getElementById("Tomato").checked ? "Tomato" : "";
+        const opcion4 = document.getElementById("Egg").checked ? "Egg" : "";
         const opcion5 = document.getElementById("Bacon").checked ? "Bacon" : "";
 
         const seleccionados = [opcion1, opcion2, opcion3, opcion4, opcion5].filter(item => item).join(",");
