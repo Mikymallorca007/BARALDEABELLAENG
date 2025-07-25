@@ -211,11 +211,11 @@ function mostrarAviso(combinacion) {
 
     let mensaje = "";
 
-    if (combinacion === "Cebolla") {
+    if (combinacion === "Onion") {
         mensaje = "You selected only Onion. This combination is not valid. Are you sure you want to continue?";
-    } else if (combinacion === "Tomate") {
+    } else if (combinacion === "Tomato") {
         mensaje = "You selected only Tomato. This combination is not valid. Are you sure you want to continue?";
-    } else if (combinacion === "Cebolla,Tomate") {
+    } else if (combinacion === "Onion,Tomato") {
         mensaje = "You selected Onion and Tomato. This combination is not valid. Are you sure you want to continue?";
     }
 
@@ -258,7 +258,7 @@ function agregarAlCarrito() {
     let carrito = JSON.parse(localStorage.getItem('Carrito')) || [];
     
     let producto = {
-        nombre: "Sandwich (York) or (Cheese)",
+        nombre: "Baguette (York) or (Cheese)",
         extras: ingredientesSeleccionados.length > 0 ? ingredientesSeleccionados : ["No extras"],
         precioBase: PRECIO_BASE,
         precioTotal: precioNumerico
