@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -123,7 +124,7 @@
             <img src="../../Imagenes/Iconos/Icono INICIO.jpg" alt="Back" class="back-button">
         </a>
     </div>
-    Tuna<br>Baguette
+    SANDWICH<br>Tuna
 </header>
 
 <a href="javascript:history.back()">
@@ -136,10 +137,10 @@
     </div>
     <div class="extras-container">
         <h2>Extras</h2>
-        <label><input type="checkbox" id="Cheese"> Cheese</label>
-        <label><input type="checkbox" id="Onion"> Onion</label>
-        <label><input type="checkbox" id="Tomato"> Tomato</label>
-        <label><input type="checkbox" id="Mayonnaise"> Mayonnaise</label>
+        <label><input type="checkbox" id="queso"> Cheese</label>
+        <label><input type="checkbox" id="cebolla"> Onion</label>
+        <label><input type="checkbox" id="Tomate"> Tomato</label>
+        <label><input type="checkbox" id="Mayonesa"> Mayonnaise</label>
 
         <button onclick="agregarAlCarrito()">Add to Cart</button>
         <div id="precioTotal">0.00 €</div>
@@ -208,7 +209,7 @@
         });
 
         let producto = {
-            nombre: "Tuna Baguette",
+            nombre: "Tuna Sandwich",
             extras: ingredientesSeleccionados.length > 0 ? ingredientesSeleccionados : [""],
             precioBase: PRECIO_BASE,
             precioTotal: precioNumerico
