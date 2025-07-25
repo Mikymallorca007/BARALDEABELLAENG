@@ -125,7 +125,7 @@
             </a>
         </div>
         <div>
-            SANDWICH<br>Chicken
+            Chicken<br>Baguette
         </div>
     </header>
 
@@ -139,10 +139,10 @@
         </div>
         <div class="extras-container">
             <h2>Extras:</h2>
-            <label><input type="checkbox" id="queso"> Cheese</label>
-            <label><input type="checkbox" id="cebolla"> Onion</label>
-            <label><input type="checkbox" id="Tomate"> Tomato</label>
-            <label><input type="checkbox" id="Huevo"> Egg</label>
+            <label><input type="checkbox" id="Cheese"> Cheese</label>
+            <label><input type="checkbox" id="Onion"> Onion</label>
+            <label><input type="checkbox" id="Tomato"> Tomato</label>
+            <label><input type="checkbox" id="Egg"> Egg</label>
             <label><input type="checkbox" id="Bacon"> Bacon</label><br>
 
             <div id="precioTotal">-</div>
@@ -206,10 +206,10 @@
     };
 
     function calcularPrecio() {
-        const opcion1 = document.getElementById("queso").checked ? "Queso" : "";
-        const opcion2 = document.getElementById("cebolla").checked ? "Cebolla" : "";
-        const opcion3 = document.getElementById("Tomate").checked ? "Tomate" : "";
-        const opcion4 = document.getElementById("Huevo").checked ? "Huevo" : "";
+        const opcion1 = document.getElementById("queso").checked ? "Cheese" : "";
+        const opcion2 = document.getElementById("cebolla").checked ? "Onion" : "";
+        const opcion3 = document.getElementById("Tomate").checked ? "Tomato" : "";
+        const opcion4 = document.getElementById("Huevo").checked ? "Egg" : "";
         const opcion5 = document.getElementById("Bacon").checked ? "Bacon" : "";
 
         const seleccionados = [opcion1, opcion2, opcion3, opcion4, opcion5].filter(item => item).join(",");
@@ -241,7 +241,7 @@
         let carrito = JSON.parse(localStorage.getItem('Carrito')) || [];
 
         let producto = {
-            nombre: "Chicken Sandwich",
+            nombre: "Chicken Baguette",
             extras: ingredientesSeleccionados.length > 0 ? ingredientesSeleccionados : [""],
             precioBase: PRECIO_BASE,
             precioTotal: precioNumerico
