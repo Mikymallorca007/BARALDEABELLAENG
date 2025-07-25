@@ -124,7 +124,7 @@
             </a>
         </div>
         <div>
-            Sandwich<br>(Ham) or (Cheese)
+            Baguette<br>(Ham) or (Cheese)
         </div>
     </header>
 
@@ -177,10 +177,10 @@ const combinacionesPrecios = {
 };
 
 function calcularPrecio() {
-    const opcion1 = document.getElementById("Ham").checked ? "York" : "";
-    const opcion2 = document.getElementById("Cheese").checked ? "Queso" : "";
-    const opcion3 = document.getElementById("Onion").checked ? "Cebolla" : "";
-    const opcion4 = document.getElementById("tomato").checked ? "Tomate" : "";
+    const opcion1 = document.getElementById("Ham").checked ? "Ham" : "";
+    const opcion2 = document.getElementById("Cheese").checked ? "Chesse" : "";
+    const opcion3 = document.getElementById("Onion").checked ? "Onion" : "";
+    const opcion4 = document.getElementById("tomato").checked ? "Tomato" : "";
 
     const seleccionados = [opcion1, opcion2, opcion3, opcion4].filter(item => item).join(",");
 
