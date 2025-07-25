@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>My Order - Personal List</title>
+  <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet">
+  <style>
+    body { font-family: 'Roboto', sans-serif; margin: 0; padding: 0; background-color: #fff; text-align: center; }
+    header {
+      background-color: #E60012;
+      color: white;
+      padding: 15px;
+      font-size: 1.8em;
+      font-weight: bold;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      position: relative;
+    }
+    .home-button {
+      position: absolute;
+      left: 10px;
+      top: 10px;
+      width: 40px;
+      height: 40px;
+      cursor: pointer;
+    }
+    .container { padding: 30px; }
+    .item {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 10px;
+      border-bottom: 1px solid #ddd;
+      font-size: 1.1em;
+    }
+    .item-name { flex: 1; text-align: left; }
+    .item-price { width: 100px; text-align: right; }
+    .delete-button {
+      background-color: transparent;
+      border: none;
+      font-size: 1.2em;
+      cursor: pointer;
+      color: #E60012;
+      margin-left: 10px;
+    }
+    #total { font-size: 1.3em; margin-top: 20px; font-weight: bold; }
+    button {
+      background-color: #E60012;
+      color: white;
+      border: none;
+      padding: 12px 20px;
+      font-size: 1em;
+      border-radius: 5px;
+      margin: 10px;
+      cursor: pointer;
+    }
+    button:hover { background-color: #c00010; }
+    footer { margin-top: 40px; font-size: 0.9em; color: #777; }
+  </style>
+</head>
+<body>
+
+<header>
+  <a href="index.html">
+    <img src="Imagenes/Iconos/Icono INICIO.jpg" alt="Home" class="home-button">
+  </a>
+  My Order
+</header>
+
+<div class="container">
+  <div id="lista-items"></div>
+  <div id="total"></div>
+
+  <button onclick="seguirEligiendo()">Keep choosing</button>
+  <button onclick="vaciarLista()">Clear list</button>
+</div>
+
+<footer>
+  This list is just to help you remember your order. Show it to the waiter when you're ready. 🍻
+</footer>
+
+<script>
+  let Carrito = JSON.parse(localStorage.getItem('Carrito')) || [];
+
+  function mostrarLista() {
+    const contenedor = document.getElementById('lista-items');
+    const total = document.getElementById('total');
+    contenedor.innerHTML = '';
+    let suma = 0;
+
+    if (Carrito.length === 0) {
+      contenedor.innerHTML = '<p>You have no selected items.</p>';
+      total.textContent = '';
+      return;
+    }
+
+    Carrito.forEach((item, index) => {
+      const div = document.createElement('div');
+      div.classList.add('item');
+      div.innerHTML = `
+        <div class="item-name">
+          ${item.nombre}<br><small>Extras: ${item.extras.join(', ')}</small>
+        </div>
+        <div class="item-price">
+          ${item.precioTotal.toFixed(2)}€
+          <button class="delete-button" onclick="eliminarItem(${index})">🗑️</button>
+        </div>
+      `;
+      contenedor.appendChild(div);
+      suma += item.precioTotal;
+    });
+
+    total.textContent = `Estimated total: ${suma.toFixed(2)}€`;
+  }
+
+  function eliminarItem(index) {
+    Carrito.splice(index, 1);
+    localStorage.setItem('Carrito', JSON.stringify(Carrito));
+    mostrarLista();
+  }
+
+  function vaciarLista() {
+    if (confirm("Clear the entire order list?")) {
+      localStorage.removeItem('Carrito');
+      Carrito = [];
+      mostrarLista();
+    }
+  }
+
+  function seguirEligiendo() {
+    window.history.back();
+  }
+
+  window.onload = mostrarLista;
+</script>
+
+</body>
+</html>
