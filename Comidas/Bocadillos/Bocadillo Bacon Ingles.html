@@ -124,7 +124,7 @@
             </a>
         </div>
         <div>
-            SANDWICH<br>Bacon
+            Baguette<br>Bacon
         </div>
     </header>
 
@@ -138,10 +138,10 @@
         </div>
         <div class="extras-container">
             <h2>Extras:</h2>
-            <label><input type="checkbox" id="queso"> Cheese</label>
-            <label><input type="checkbox" id="cebolla"> Onion</label>
-            <label><input type="checkbox" id="Tomate"> Tomato</label>
-            <label><input type="checkbox" id="Huevo"> Egg</label><br>
+            <label><input type="checkbox" id="Cheese"> Cheese</label>
+            <label><input type="checkbox" id="Onion"> Onion</label>
+            <label><input type="checkbox" id="Tomato"> Tomato</label>
+            <label><input type="checkbox" id="Egg"> Egg</label><br>
 
             <div id="precioTotal">-</div>
 
@@ -159,28 +159,28 @@
     const PRECIO_BASE = 6.00;
 
     const combinacionesPrecios = {
-        "Queso": 0.40,
-        "Cebolla": 0.40,
-        "Tomate": 0.40,
-        "Huevo": 1.00,
-        "Queso,Cebolla": 0.80,
-        "Queso,Tomate": 0.80,
-        "Queso,Huevo": 1.40,
-        "Cebolla,Tomate": 0.80,
-        "Cebolla,Huevo": 1.40,
-        "Tomate,Huevo": 1.40,
-        "Queso,Cebolla,Tomate": 1.20,
-        "Queso,Cebolla,Huevo": 1.80,
-        "Queso,Tomate,Huevo": 1.80,
-        "Cebolla,Tomate,Huevo": 1.80,
-        "Queso,Cebolla,Tomate,Huevo": 2.20     
+        "Cheese": 0.40,
+        "Onion": 0.40,
+        "Tomato": 0.40,
+        "Egg": 1.00,
+        "Cheese,Onion": 0.80,
+        "Cheese,Tomato": 0.80,
+        "Cheese,Egg": 1.40,
+        "Onion,Tomato": 0.80,
+        "Onion,Egg": 1.40,
+        "Tomato,Egg": 1.40,
+        "Cheese,Onion,Tomato": 1.20,
+        "Cheese,Onion,Egg": 1.80,
+        "Cheese,Tomato,Egg": 1.80,
+        "Onion,Tomato,Egg": 1.80,
+        "Cheese,Onion,Tomato,Egg": 2.20     
     };
 
     function calcularPrecio() {
-        const opcion1 = document.getElementById("queso").checked ? "Queso" : "";
-        const opcion2 = document.getElementById("cebolla").checked ? "Cebolla" : "";
-        const opcion3 = document.getElementById("Tomate").checked ? "Tomate" : "";
-        const opcion4 = document.getElementById("Huevo").checked ? "Huevo" : "";
+        const opcion1 = document.getElementById("Cheese").checked ? "Cheese" : "";
+        const opcion2 = document.getElementById("Onion").checked ? "Onion" : "";
+        const opcion3 = document.getElementById("Tomato").checked ? "Tomato" : "";
+        const opcion4 = document.getElementById("Egg").checked ? "Egg" : "";
 
         const seleccionados = [opcion1, opcion2, opcion3, opcion4].filter(item => item).join(",");
 
@@ -211,7 +211,7 @@
         let carrito = JSON.parse(localStorage.getItem('Carrito')) || [];
         
         let producto = {
-            nombre: "Bacon Sandwich",
+            nombre: "Baguette Bacon",
             extras: ingredientesSeleccionados.length > 0 ? ingredientesSeleccionados : [""],
             precioBase: PRECIO_BASE,
             precioTotal: precioNumerico
