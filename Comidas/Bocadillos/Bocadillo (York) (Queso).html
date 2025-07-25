@@ -124,7 +124,7 @@
             </a>
         </div>
         <div>
-            Sandwich<br>(York) or (Cheese)
+            Sandwich<br>(Ham) or (Cheese)
         </div>
     </header>
 
@@ -134,14 +134,14 @@
 
     <div class="content-container">
         <div class="image-container">
-            <img src="../Bocadillos/Bocadillo (York) (Queso).jpg" alt="Sandwich (York) (Cheese)">
+            <img src="../Bocadillos/Bocadillo (York) (Queso).jpg" alt="Baguette (Ham) (Cheese)">
         </div>
         <div class="extras-container">
             <h2>Select your ingredients:</h2>
-            <label><input type="checkbox" id="york"> York</label>
-            <label><input type="checkbox" id="queso"> Cheese</label>
-            <label><input type="checkbox" id="cebolla"> Onion</label>
-            <label><input type="checkbox" id="tomate"> Tomato</label><br>
+            <label><input type="checkbox" id="Ham"> Ham</label>
+            <label><input type="checkbox" id="Cheese"> Cheese</label>
+            <label><input type="checkbox" id="Onion"> Onion</label>
+            <label><input type="checkbox" id="tomato"> Tomato</label><br>
 
             <div id="precioTotal">-</div>
 
@@ -159,28 +159,28 @@
 const PRECIO_BASE = 0.00;
 
 const combinacionesPrecios = {
-    "York": 5.00,
-    "Queso": 5.00,
-    "Cebolla": 0.00,
-    "Tomate": 0.00,
-    "York,Queso": 5.00,
-    "York,Cebolla": 5.40,
-    "York,Tomate": 5.40,
-    "Queso,Cebolla": 5.40,
-    "Queso,Tomate": 5.40,
-    "Cebolla,Tomate": 0.00,
-    "York,Queso,Cebolla": 5.40,
-    "York,Queso,Tomate": 5.40,
-    "York,Cebolla,Tomate": 5.80,
-    "Queso,Cebolla,Tomate": 5.80,
-    "York,Queso,Cebolla,Tomate": 5.80
+    "Ham": 5.00,
+    "Cheese": 5.00,
+    "Onion": 0.00,
+    "Tomato": 0.00,
+    "Ham,Cheese": 5.00,
+    "Ham,Onion": 5.40,
+    "Ham,Tomato": 5.40,
+    "Cheese,Onion": 5.40,
+    "Cheese,Tomato": 5.40,
+    "Onion,Tomato": 0.00,
+    "Ham,Cheese,Onion": 5.40,
+    "Ham,Cheese,Tomato": 5.40,
+    "Ham,Onion,Tomato": 5.80,
+    "Cheese,Onion,Tomato": 5.80,
+    "Ham,Cheese,Onion,Tomato": 5.80
 };
 
 function calcularPrecio() {
-    const opcion1 = document.getElementById("york").checked ? "York" : "";
-    const opcion2 = document.getElementById("queso").checked ? "Queso" : "";
-    const opcion3 = document.getElementById("cebolla").checked ? "Cebolla" : "";
-    const opcion4 = document.getElementById("tomate").checked ? "Tomate" : "";
+    const opcion1 = document.getElementById("Ham").checked ? "York" : "";
+    const opcion2 = document.getElementById("Cheese").checked ? "Queso" : "";
+    const opcion3 = document.getElementById("Onion").checked ? "Cebolla" : "";
+    const opcion4 = document.getElementById("tomato").checked ? "Tomate" : "";
 
     const seleccionados = [opcion1, opcion2, opcion3, opcion4].filter(item => item).join(",");
 
@@ -189,7 +189,7 @@ function calcularPrecio() {
 
     document.getElementById("precioTotal").textContent = precioTotal.toFixed(2) + " €";
 
-    if (seleccionados === "Cebolla" || seleccionados === "Tomate" || seleccionados === "Cebolla,Tomate") {
+    if (seleccionados === "Onion" || seleccionados === "Tomato" || seleccionados === "Cebolla,Tomate") {
         mostrarAviso(seleccionados);
         deshabilitarBoton();
     } else {
