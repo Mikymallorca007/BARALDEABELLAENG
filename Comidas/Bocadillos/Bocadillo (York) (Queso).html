@@ -23,23 +23,15 @@
       justify-content: center;
       position: relative;
     }
-    .header-left {
-      position: absolute;
-      left: -10px;
-      display: flex;
-      align-items: center;
-    }
     .header-left img {
       width: 40px;
-      height: auto;
-      margin-right: 5px;
-      position: relative;
-      top: -5px;
+      position: absolute;
+      top: 150px;
+      left: 20px;
     }
     .content-container {
       display: flex;
       justify-content: center;
-      align-items: center;
       flex-wrap: wrap;
       padding: 30px;
     }
@@ -50,7 +42,6 @@
     }
     .image-container img {
       width: 150px;
-      height: auto;
       border-radius: 10px;
       margin-top: -40px;
     }
@@ -70,12 +61,17 @@
       margin: 5px 0;
       font-size: 1.1em;
     }
-    .back-button {
-      width: 40px;
-      height: auto;
-      position: absolute;
-      top: 150px;
-      left: 20px;
+    #precioTotal {
+      font-size: 1.5em;
+      font-weight: bold;
+      margin-top: 10px;
+      text-align: center;
+    }
+    #aviso {
+      color: red;
+      margin-top: 10px;
+      font-size: 1.2em;
+      text-align: center;
     }
     button {
       background-color: #4CAF50;
@@ -85,13 +81,12 @@
       cursor: pointer;
       border-radius: 5px;
       font-size: 1.2em;
+      display: block;
+      margin: 10px auto;
     }
     button:disabled {
       background-color: #ccc;
       cursor: not-allowed;
-    }
-    button:hover:not(:disabled) {
-      background-color: #45a049;
     }
     #sending-image {
       display: none;
@@ -100,9 +95,8 @@
       left: 0;
       width: 100%;
       height: 100%;
-      object-fit: cover;
+      background-color: rgba(0,0,0,0.7);
       z-index: 1000;
-      background-color: rgba(0, 0, 0, 0.7);
     }
     .cart-icon {
       position: absolute;
@@ -111,16 +105,6 @@
       width: 50px;
       cursor: pointer;
     }
-    #precioTotal {
-      font-size: 1.5em;
-      font-weight: bold;
-      margin-top: 10px;
-    }
-    #aviso {
-      color: red;
-      margin-top: 10px;
-      font-size: 1.2em;
-    }
   </style>
 </head>
 <body>
@@ -128,30 +112,25 @@
   <header>
     <div class="header-left">
       <a href="../../index.html">
-        <img src="../../Imagenes/Iconos/Icono INICIO.jpg" alt="Back" class="back-button" />
+        <img src="../../Imagenes/Iconos/Icono INICIO.jpg" alt="Inicio" />
       </a>
     </div>
-    <div>
-      Baguette<br>(Ham) or (Cheese)
-    </div>
+    BAR ALDEA BELLA
   </header>
-
-  <a href="javascript:history.back()">
-    <img src="../../Imagenes/Iconos/Icono Regresar.png" alt="Go back" class="back-button" />
-  </a>
 
   <div class="content-container">
     <div class="image-container">
-      <img src="../Bocadillos/Bocadillo (York) (Queso).jpg" alt="Baguette (Ham) (Cheese)" />
+      <img src="../Bocadillos/Bocadillo (York) (Queso).jpg" alt="Baguette" />
     </div>
     <div class="extras-container">
       <h2>Select your ingredients:</h2>
       <label><input type="checkbox" id="Ham" /> Ham</label>
       <label><input type="checkbox" id="Cheese" /> Cheese</label>
       <label><input type="checkbox" id="Onion" /> Onion</label>
-      <label><input type="checkbox" id="tomato" /> Tomato</label><br/>
+      <label><input type="checkbox" id="Tomato" /> Tomato</label>
       <div id="precioTotal">-</div>
       <button onclick="agregarAlCarrito()">Add to Cart</button>
+      <div id="aviso"></div>
     </div>
   </div>
 
@@ -162,69 +141,51 @@
 
 <script>
 const PRECIO_BASE = 0.00;
-const combinacionesPrecios = {
-  "Ham": 5.00,
-  "Cheese": 5.00,
-  "Onion": 0.00,
-  "Tomato": 0.00,
-  "Ham,Cheese": 5.00,
-  "Cheese,Ham": 5.00,
-  "Ham,Onion": 5.40,
-  "Ham,Tomato": 5.40,
-  "Cheese,Onion": 5.40,
-  "Cheese,Tomato": 5.40,
-  "Onion,Tomato": 0.00,
-  "Ham,Cheese,Onion": 5.40,
-  "Ham,Cheese,Tomato": 5.40,
-  "Ham,Onion,Tomato": 5.80,
-  "Cheese,Onion,Tomato": 5.80,
-  "Ham,Cheese,Onion,Tomato": 5.80
+const preciosExtras = {
+  Ham: 5.00,
+  Cheese: 5.00,
+  Onion: 0.00,
+  Tomato: 0.00
 };
 
+const combinacionesInvalidas = [
+  ["Onion"],
+  ["Tomato"],
+  ["Onion", "Tomato"]
+];
+
 function calcularPrecio() {
-  const opcion1 = document.getElementById("Ham").checked ? "Ham" : "";
-  const opcion2 = document.getElementById("Cheese").checked ? "Cheese" : "";
-  const opcion3 = document.getElementById("Onion").checked ? "Onion" : "";
-  const opcion4 = document.getElementById("tomato").checked ? "Tomato" : "";
+  const seleccionados = Object.keys(preciosExtras)
+    .filter(ingrediente => document.getElementById(ingrediente).checked);
 
-  const seleccionados = [opcion1, opcion2, opcion3, opcion4].filter(Boolean).sort().join(",");
+  const seleccionOrdenada = [...seleccionados].sort();
 
-  const precioExtras = combinacionesPrecios[seleccionados] !== undefined ? combinacionesPrecios[seleccionados] : 0;
-  const precioTotal = PRECIO_BASE + precioExtras;
+  // Validación
+  const esInvalida = combinacionesInvalidas.some(invalida => 
+    invalida.length === seleccionOrdenada.length &&
+    invalida.every((ing, i) => ing === seleccionOrdenada[i])
+  );
 
-  document.getElementById("precioTotal").textContent = precioTotal.toFixed(2) + " €";
+  const total = seleccionados.reduce((acc, ing) => acc + preciosExtras[ing], PRECIO_BASE);
 
-  if (seleccionados === "Onion" || seleccionados === "Tomato" || seleccionados === "Onion,Tomato") {
-    mostrarAviso(seleccionados);
+  document.getElementById("precioTotal").textContent = total.toFixed(2) + " €";
+
+  if (esInvalida) {
+    mostrarAviso(seleccionOrdenada);
     deshabilitarBoton();
   } else {
     ocultarAviso();
     habilitarBoton();
   }
 }
+
 function mostrarAviso(combinacion) {
-  let avisoDiv = document.getElementById("aviso");
-  if (!avisoDiv) {
-    avisoDiv = document.createElement("div");
-    avisoDiv.id = "aviso";
-    document.querySelector(".extras-container").appendChild(avisoDiv);
-  }
-
-  let mensaje = "";
-  if (combinacion === "Onion") {
-    mensaje = "You selected only Onion. This combination is not valid. Are you sure you want to continue?";
-  } else if (combinacion === "Tomato") {
-    mensaje = "You selected only Tomato. This combination is not valid. Are you sure you want to continue?";
-  } else if (combinacion === "Onion,Tomato") {
-    mensaje = "You selected Onion and Tomato. This combination is not valid. Are you sure you want to continue?";
-  }
-
-  avisoDiv.textContent = mensaje;
+  let mensaje = "This combination is not valid: " + combinacion.join(", ") + ". Are you sure you want to continue?";
+  document.getElementById("aviso").textContent = mensaje;
 }
 
 function ocultarAviso() {
-  const avisoDiv = document.getElementById("aviso");
-  if (avisoDiv) avisoDiv.remove();
+  document.getElementById("aviso").textContent = "";
 }
 
 function deshabilitarBoton() {
@@ -238,46 +199,40 @@ function habilitarBoton() {
 function agregarAlCarrito() {
   const precioTexto = document.getElementById("precioTotal").textContent;
   const precioNumerico = parseFloat(precioTexto.replace(" €", ""));
-
   if (isNaN(precioNumerico)) {
     alert("Error getting the price.");
     return;
   }
 
-  const ingredientesSeleccionados = [];
-  document.querySelectorAll("input[type=checkbox]:checked").forEach(checkbox => {
-    let nombre = checkbox.id.charAt(0).toUpperCase() + checkbox.id.slice(1);
-    ingredientesSeleccionados.push(nombre);
-  });
+  const extras = Object.keys(preciosExtras)
+    .filter(ing => document.getElementById(ing).checked);
 
   const producto = {
     nombre: "Baguette (York) or (Cheese)",
-    extras: ingredientesSeleccionados.length > 0 ? ingredientesSeleccionados : ["No extras"],
+    extras: extras.length ? extras : ["No extras"],
     precioBase: PRECIO_BASE,
     precioTotal: precioNumerico
   };
 
-  let carrito = JSON.parse(localStorage.getItem('Carrito')) || [];
+  let carrito = JSON.parse(localStorage.getItem("Carrito")) || [];
   carrito.push(producto);
-  localStorage.setItem('Carrito', JSON.stringify(carrito));
+  localStorage.setItem("Carrito", JSON.stringify(carrito));
 
-  console.log("Cart after adding:", carrito);
   mostrarImagenEnvio();
 }
 
 function mostrarImagenEnvio() {
-  const sendingImage = document.getElementById("sending-image");
-  sendingImage.style.display = "block";
+  document.getElementById("sending-image").style.display = "block";
   setTimeout(() => {
-    sendingImage.style.display = "none";
+    document.getElementById("sending-image").style.display = "none";
   }, 1000);
 }
 
 document.querySelectorAll("input[type=checkbox]").forEach(checkbox => {
-  checkbox.addEventListener('change', calcularPrecio);
+  checkbox.addEventListener("change", calcularPrecio);
 });
 
-calcularPrecio(); // ejecuta cálculo al cargar la página
+window.onload = calcularPrecio;
 </script>
 
 </body>
