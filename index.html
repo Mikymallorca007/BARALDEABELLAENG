@@ -12,6 +12,7 @@
       padding: 0;
       background-color: #fff;
     }
+
     header {
       background-color: #E60012;
       color: white;
@@ -23,70 +24,77 @@
       align-items: center;
       justify-content: center;
     }
+
     .cart-container {
       position: absolute;
       right: 5px;
       top: 30%;
       transform: translateY(-50%);
     }
+
     .cart-icon {
       width: 50px;
       height: 50px;
       cursor: pointer;
     }
+
     .hero {
       text-align: center;
       padding: 50px;
       background-image: url('Imagenes/Imagen Cabecera Index.jpeg');
       background-size: cover;
+      background-position: center;
       color: white;
     }
-    .button {
-      background-color: #FFC72C;
-      color: black;
-      padding: 15px 30px;
-      text-decoration: none;
-      font-size: 1.5em;
-      border-radius: 5px;
-      display: inline-block;
-      margin-top: 20px;
-    }
+
     .menu-section {
-      display: flex;
-      flex-wrap: wrap;
-      justify-content: center;
-      gap: 20px;
-      padding: 30px 50px;
-      margin-top: -20px;
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      justify-items: center;
+      gap: 30px;
+      padding: 40px 20px;
     }
+
     .category {
-      width: 45%;
-      max-width: 180px;
       text-align: center;
+      width: 160px;
+      transition: transform 0.3s ease;
     }
+
+    .category:hover {
+      transform: scale(1.05);
+    }
+
     .category a {
       text-decoration: none;
       color: black;
-      font-size: 1.2em;
-      font-weight: bold;
-      display: block;
     }
+
     .category img {
       width: 60px;
       height: 60px;
-      margin-bottom: 9px;
-      margin-top: -6px;
+      margin-bottom: 8px;
     }
+
+    .category span {
+      display: block;
+      font-size: 1.2em;
+      font-weight: bold;
+      color: black;
+      margin-top: 6px;
+    }
+
     footer {
       background-color: #E60012;
       color: white;
       text-align: center;
       padding: 10px;
+      font-size: 0.9em;
     }
 
     @media (max-width: 600px) {
-      .category {
-        width: 45%;
+      .menu-section {
+        grid-template-columns: 1fr;
       }
     }
   </style>
@@ -110,28 +118,28 @@
     <div class="category">
       <a href="Comidas.html">
         <img src="Imagenes/Iconos/Icono Comida.png" alt="Food">
-        Food
+        <span>Food</span>
       </a>
     </div>
 
     <div class="category">
       <a href="Bebidas/En Construccion.html">
         <img src="Imagenes/Iconos/Icono Bebidas.png" alt="Drinks">
-        Drinks
+        <span>Drinks</span>
       </a>
     </div>
 
     <div class="category">
       <a href="Helados/Helados.html">
         <img src="Imagenes/Iconos/Icono Helados.png" alt="Ice Cream">
-        Ice Cream
+        <span>Ice Cream</span>
       </a>
     </div>
 
     <div class="category">
       <a href="Chocolates-Golosinas-Patatillas.html">
         <img src="Imagenes/Iconos/Golosinas.jpg" alt="Sweets">
-        Sweets
+        <span>Sweets</span>
       </a>
     </div>
   </div>
@@ -139,4 +147,3 @@
   <footer>&copy; 2025 Bar Aldea Bella | All rights reserved</footer>
 </body>
 </html>
-```
