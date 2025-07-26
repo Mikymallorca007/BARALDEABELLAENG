@@ -1,8 +1,9 @@
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>BAR ALDEA BELLA</title>
   <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet">
   <style>
@@ -40,7 +41,7 @@
 
     .hero {
       text-align: center;
-      padding: 50px;
+      padding: 20px 10px; /* espacio reducido */
       background-image: url('Imagenes/Imagen Cabecera Index.jpeg');
       background-size: cover;
       background-position: center;
@@ -52,7 +53,8 @@
       grid-template-columns: repeat(2, 1fr);
       justify-items: center;
       gap: 30px;
-      padding: 40px 20px;
+      padding: 20px 10px; /* ajustado para menos espacio */
+      margin-top: -10px; /* sube los iconos hacia la cabecera */
     }
 
     .category {
@@ -73,7 +75,7 @@
     .category img {
       width: 60px;
       height: 60px;
-      margin-bottom: 8px;
+      margin-bottom: 5px; /* más pegado al texto */
     }
 
     .category span {
@@ -92,11 +94,11 @@
       font-size: 0.9em;
     }
 
-@media (max-width: 600px) {
-  .menu-section {
-    grid-template-columns: repeat(2, 1fr);
-  }
-}
+    @media (max-width: 600px) {
+      .menu-section {
+        grid-template-columns: 1fr;
+      }
+    }
   </style>
 </head>
 <body>
