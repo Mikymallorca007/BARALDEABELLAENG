@@ -1,0 +1,296 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>BAR ALDEA BELLA - Menú</title>
+    <style>
+        :root {
+            --bg-color: #121214;
+            --card-bg: #1a1a1e;
+            --accent-gold: #d4af37;
+            --text-primary: #ffffff;
+            --text-secondary: #a0a0aa;
+            --border-color: #2e2e36;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+            background-color: var(--bg-color);
+            color: var(--text-primary);
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            padding: 20px 15px 40px;
+        }
+
+        header {
+            width: 100%;
+            max-width: 800px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            position: relative;
+            padding-bottom: 20px;
+            border-bottom: 1px solid var(--border-color);
+            margin-bottom: 20px;
+        }
+
+        /* Selector de Idioma (Banderas) */
+        .lang-selector {
+            position: absolute;
+            top: 0;
+            right: 0;
+            display: flex;
+            gap: 10px;
+            background: var(--card-bg);
+            padding: 6px 12px;
+            border-radius: 20px;
+            border: 1px solid var(--border-color);
+        }
+
+        .lang-btn {
+            background: none;
+            border: none;
+            font-size: 1.3rem;
+            cursor: pointer;
+            opacity: 0.5;
+            transition: opacity 0.2s ease, transform 0.2s ease;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .lang-btn.active, .lang-btn:hover {
+            opacity: 1;
+            transform: scale(1.15);
+        }
+
+        .brand-title {
+            font-size: 2rem;
+            font-weight: 800;
+            color: var(--accent-gold);
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            margin-top: 15px;
+            text-align: center;
+            text-shadow: 0 2px 10px rgba(212, 175, 55, 0.2);
+        }
+
+        .brand-subtitle {
+            font-size: 0.95rem;
+            color: var(--text-secondary);
+            margin-top: 4px;
+            letter-spacing: 1px;
+        }
+
+        /* Selector de Páginas (Pestañas) */
+        .page-selector {
+            display: flex;
+            background-color: var(--card-bg);
+            padding: 5px;
+            border-radius: 30px;
+            border: 1px solid var(--border-color);
+            margin-bottom: 25px;
+            gap: 5px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.3);
+        }
+
+        .tab-btn {
+            background: transparent;
+            border: none;
+            color: var(--text-secondary);
+            padding: 10px 24px;
+            font-size: 0.95rem;
+            font-weight: 600;
+            border-radius: 25px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .tab-btn.active {
+            background-color: var(--accent-gold);
+            color: #000000;
+            box-shadow: 0 2px 10px rgba(212, 175, 55, 0.4);
+        }
+
+        .tab-btn:hover:not(.active) {
+            color: var(--text-primary);
+        }
+
+        /* Contenedor del Visor */
+        .menu-viewer {
+            width: 100%;
+            max-width: 800px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .page-content {
+            display: none;
+            width: 100%;
+            background-color: var(--card-bg);
+            border-radius: 16px;
+            overflow: hidden;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+            border: 1px solid var(--border-color);
+        }
+
+        .page-content.active {
+            display: block;
+            animation: fadeIn 0.4s ease forwards;
+        }
+
+        .page-content img {
+            width: 100%;
+            height: auto;
+            display: block;
+        }
+
+        /* Módulo de Traducción */
+        .translation-box {
+            width: 100%;
+            max-width: 800px;
+            margin-top: 25px;
+            background-color: var(--card-bg);
+            border: 1px solid var(--border-color);
+            border-radius: 12px;
+            padding: 18px;
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+        }
+
+        .translation-title {
+            font-size: 0.9rem;
+            color: var(--accent-gold);
+            font-weight: 600;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        #google_translate_element {
+            min-height: 38px;
+        }
+
+        footer {
+            margin-top: auto;
+            padding-top: 30px;
+            text-align: center;
+            font-size: 0.85rem;
+            color: var(--text-secondary);
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(6px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        @media (max-width: 600px) {
+            .brand-title {
+                font-size: 1.6rem;
+                margin-top: 35px;
+            }
+            .lang-selector {
+                top: -5px;
+            }
+            .tab-btn {
+                padding: 8px 18px;
+                font-size: 0.85rem;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <header>
+        <div class="lang-selector">
+            <button class="lang-btn active" onclick="setLanguage('es')" title="Español">🇪🇸</button>
+            <button class="lang-btn" onclick="setLanguage('en')" title="English">🇬🇧</button>
+        </div>
+
+        <h1 class="brand-title">BAR ALDEA BELLA</h1>
+        <p class="brand-subtitle" id="subtitle-text">NUESTRA CARTA</p>
+    </header>
+
+    <nav class="page-selector">
+        <button class="tab-btn active" id="btn-page1" onclick="showPage(1)">Página 1</button>
+        <button class="tab-btn" id="btn-page2" onclick="showPage(2)">Página 2</button>
+    </nav>
+
+    <main class="menu-viewer">
+        <article class="page-content active" id="page-1">
+            <img src="pagina1.png" alt="Carta Bar Aldea Bella - Página 1">
+        </article>
+
+        <article class="page-content" id="page-2">
+            <img src="pagina2.png" alt="Carta Bar Aldea Bella - Página 2">
+        </article>
+    </main>
+
+    <section class="translation-box">
+        <div class="translation-header">
+            <span class="translation-title">🌐 <span id="trans-label">Traductor / Translate Menu</span></span>
+        </div>
+        <div id="google_translate_element"></div>
+    </section>
+
+    <footer>
+        <p>© BAR ALDEA BELLA</p>
+    </footer>
+
+    <script type="text/javascript">
+        function googleTranslateElementInit() {
+            new google.translate.TranslateElement({
+                pageLanguage: 'es',
+                includedLanguages: 'en,de,fr,it,nl',
+                layout: google.translate.TranslateElement.InlineLayout.SIMPLE,
+                autoDisplay: false
+            }, 'google_translate_element');
+        }
+    </script>
+    <script type="text/javascript" src="//translate.google.com/translate_a/element.js?cb=googleTranslateElementInit"></script>
+
+    <script>
+        function showPage(pageNumber) {
+            document.querySelectorAll('.page-content').forEach(page => page.classList.remove('active'));
+            document.querySelectorAll('.tab-btn').forEach(btn => btn.classList.remove('active'));
+
+            document.getElementById('page-' + pageNumber).classList.add('active');
+            document.getElementById('btn-page' + pageNumber).classList.add('active');
+        }
+
+        function setLanguage(lang) {
+            const btnEs = document.querySelectorAll('.lang-btn')[0];
+            const btnEn = document.querySelectorAll('.lang-btn')[1];
+            const subtitle = document.getElementById('subtitle-text');
+            const btnPage1 = document.getElementById('btn-page1');
+            const btnPage2 = document.getElementById('btn-page2');
+
+            if (lang === 'en') {
+                btnEs.classList.remove('active');
+                btnEn.classList.add('active');
+                subtitle.textContent = "OUR MENU";
+                btnPage1.textContent = "Page 1";
+                btnPage2.textContent = "Page 2";
+            } else {
+                btnEn.classList.remove('active');
+                btnEs.classList.add('active');
+                subtitle.textContent = "NUESTRA CARTA";
+                btnPage1.textContent = "Página 1";
+                btnPage2.textContent = "Página 2";
+            }
+        }
+    </script>
+
+</body>
+</html>
